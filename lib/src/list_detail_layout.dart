@@ -44,14 +44,10 @@ class ListDetailLayout extends StatelessWidget {
         config: <Breakpoint, SlotLayoutConfig>{
           Breakpoints.standard: SlotLayout.from(
             key: const Key('Body'),
-            inAnimation: (p0, p1) => p0,
-            outAnimation: (p0, p1) => p0,
             builder: null,
           ),
           Breakpoints.small: SlotLayout.from(
             key: const Key('Body Small'),
-            inAnimation: (p0, p1) => p0,
-            outAnimation: (p0, p1) => p0,
             builder: (_) => detailPane ?? listPane,
           ),
           Breakpoints.medium: SlotLayout.from(
