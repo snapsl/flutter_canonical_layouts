@@ -42,10 +42,22 @@ class SupportingPaneLayout extends StatelessWidget {
   /// Choose between [Side.left] and [Side.right].
   final Side supportingPaneSide;
 
+  /// Width for supporting pane.
+  ///
+  /// Sets the width for the supporting pane
+  /// when on the side defined by [supportingPaneSide].
   final double sideSupportingPaneWidth;
 
+  /// Supporting pane body ratio.
+  ///
+  /// Sets the body ratio between [focusPane] and [horizontalSupportingPane]
+  /// when supporting pane is placed below the focus pane.
   final double bottomSupportingPaneRatio;
 
+  /// Supporting pane as bottom sheet.
+  ///
+  /// Widget that implements the supporting pane
+  /// in the compact layout as [DraggableScrollableSheet].
   final DraggableScrollableSheet bottomSheetSupportingPane;
 
   const SupportingPaneLayout({

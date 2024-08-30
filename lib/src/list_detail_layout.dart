@@ -32,13 +32,13 @@ class ListDetailLayout extends StatelessWidget {
   final bool internalAnimations;
 
   const ListDetailLayout({
+    super.key,
     required this.listPane,
     this.detailPane,
     this.detailPlaceholder,
     this.bodyRatio,
     this.transitionDuration = const Duration(seconds: 1),
     this.internalAnimations = true,
-    super.key,
   });
 
   @override

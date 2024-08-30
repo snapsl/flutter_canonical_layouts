@@ -32,8 +32,8 @@ class ScaffoldWithNavBar extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
 
   const ScaffoldWithNavBar({
-    required this.navigationShell,
     super.key,
+    required this.navigationShell,
   });
 
   @override

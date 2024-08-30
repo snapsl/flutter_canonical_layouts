@@ -10,8 +10,8 @@ class DetailScreen extends StatelessWidget {
   final String id;
 
   const DetailScreen({
-    required this.id,
     super.key,
+    required this.id,
   });
 
   @override
@@ -32,8 +32,8 @@ class ListScreen extends StatelessWidget {
   final int? selectedIndex;
 
   const ListScreen({
-    this.selectedIndex,
     super.key,
+    this.selectedIndex,
   });
 
   @override
