@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// source: https://api.flutter.dev/flutter/material/SearchBar-class.html
+
 class SearchBarApp extends StatelessWidget {
   const SearchBarApp({super.key});
 

@@ -17,18 +17,6 @@ class _SupportingPaneScreenState extends State<SupportingPaneScreen> {
   late final DraggableScrollableController controller;
 
   @override
-  void initState() {
-    super.initState();
-    controller = DraggableScrollableController();
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -131,5 +119,17 @@ class _SupportingPaneScreenState extends State<SupportingPaneScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    controller = DraggableScrollableController();
   }
 }
