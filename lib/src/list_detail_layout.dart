@@ -22,6 +22,9 @@ class ListDetailLayout extends StatelessWidget {
   /// Defaults to [SizedBox].
   final Widget? detailPlaceholder;
 
+  ///See [AdaptiveLayout.bodyRatio]
+  final double? bodyRatio;
+
   /// See [AdaptiveLayout.transitionDuration]
   final Duration transitionDuration;
 
@@ -32,6 +35,7 @@ class ListDetailLayout extends StatelessWidget {
     required this.listPane,
     this.detailPane,
     this.detailPlaceholder,
+    this.bodyRatio,
     this.transitionDuration = const Duration(seconds: 1),
     this.internalAnimations = true,
     super.key,
@@ -73,6 +77,7 @@ class ListDetailLayout extends StatelessWidget {
           : null,
       transitionDuration: transitionDuration,
       internalAnimations: internalAnimations,
+      bodyRatio: bodyRatio,
     );
   }
 }
