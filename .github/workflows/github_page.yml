@@ -9,6 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ./example
+
     concurrency:
       group: ${{ github.head_ref || github.run_id }}
       cancel-in-progress: true
@@ -24,7 +28,7 @@ jobs:
         run: flutter build web --base-href /${{ github.event.repository.name }}/ --release
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: example/build/web
+          path: build/web
 
   deploy:
     needs: build
