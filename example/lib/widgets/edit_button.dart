@@ -7,7 +7,9 @@ class EditButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       child: const Icon(Icons.edit),
-      onPressed: () {},
+      onPressed: () => ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(const SnackBar(content: Text('Yay! A SnackBar!'))),
     );
   }
 }
