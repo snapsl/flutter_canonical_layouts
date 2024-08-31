@@ -7,11 +7,11 @@ part of 'router.dart';
 // **************************************************************************
 
 List<RouteBase> get $appRoutes => [
-      $myShellRouteData,
+      $appShellRouteData,
     ];
 
-RouteBase get $myShellRouteData => StatefulShellRouteData.$route(
-      factory: $MyShellRouteDataExtension._fromState,
+RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
+      factory: $AppShellRouteDataExtension._fromState,
       branches: [
         StatefulShellBranchData.$branch(
           routes: [
@@ -25,11 +25,11 @@ RouteBase get $myShellRouteData => StatefulShellRouteData.$route(
           routes: [
             GoRouteData.$route(
               path: '/list-detail',
-              factory: $InitListDetailsRouteExtension._fromState,
+              factory: $ListDetailInitRouteExtension._fromState,
               routes: [
                 GoRouteData.$route(
                   path: ':id',
-                  factory: $ListDetailsRouteExtension._fromState,
+                  factory: $ListDetailRouteExtension._fromState,
                 ),
               ],
             ),
@@ -54,7 +54,7 @@ RouteBase get $myShellRouteData => StatefulShellRouteData.$route(
       ],
     );
 
-extension $MyShellRouteDataExtension on AppShellRouteData {
+extension $AppShellRouteDataExtension on AppShellRouteData {
   static AppShellRouteData _fromState(GoRouterState state) =>
       const AppShellRouteData();
 }
@@ -76,7 +76,7 @@ extension $HomeRouteExtension on HomeRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $InitListDetailsRouteExtension on ListDetailInitRoute {
+extension $ListDetailInitRouteExtension on ListDetailInitRoute {
   static ListDetailInitRoute _fromState(GoRouterState state) =>
       const ListDetailInitRoute();
 
@@ -94,7 +94,7 @@ extension $InitListDetailsRouteExtension on ListDetailInitRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $ListDetailsRouteExtension on ListDetailRoute {
+extension $ListDetailRouteExtension on ListDetailRoute {
   static ListDetailRoute _fromState(GoRouterState state) => ListDetailRoute(
         id: state.pathParameters['id']!,
       );
