@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+Color colorFromIndex(int index) =>
+    Colors.primaries[index % Colors.primaries.length];
+
 class ItemCard extends StatelessWidget {
   final Color color;
 

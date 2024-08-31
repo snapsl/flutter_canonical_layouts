@@ -28,10 +28,10 @@ class MaterialUiApp extends StatelessWidget {
   }
 }
 
-class ScaffoldWithNavBar extends StatelessWidget {
+class ScaffoldShell extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
 
-  const ScaffoldWithNavBar({
+  const ScaffoldShell({
     super.key,
     required this.navigationShell,
   });

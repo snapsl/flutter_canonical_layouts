@@ -55,7 +55,7 @@ class AppShellRouteData extends StatefulShellRouteData {
     GoRouterState state,
     StatefulNavigationShell navigationShell,
   ) {
-    return ScaffoldWithNavBar(
+    return ScaffoldShell(
       navigationShell: navigationShell,
     );
   }

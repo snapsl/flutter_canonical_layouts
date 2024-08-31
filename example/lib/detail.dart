@@ -23,7 +23,10 @@ class DetailScreen extends StatelessWidget {
             !Breakpoints.mediumLargeAndUp.isActive(context),
       ),
       body: ItemCard(
-          color: Colors.blue, title: 'Title for $id', subtitle: 'subtitle'),
+        color: colorFromIndex(int.tryParse(id) ?? 0),
+        title: 'Title for $id',
+        subtitle: 'subtitle',
+      ),
     );
   }
 }
