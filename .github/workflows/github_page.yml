@@ -28,7 +28,7 @@ jobs:
         run: flutter build web --base-href /${{ github.event.repository.name }}/ --release
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: build/web
+          path: example/build/web
 
   deploy:
     needs: build
