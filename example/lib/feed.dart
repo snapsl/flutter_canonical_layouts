@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 
+import 'widgets/edit_button.dart';
 import 'widgets/item_card.dart';
 import 'widgets/searchbar.dart';
 
@@ -18,7 +19,7 @@ class _FeedScreenState extends State<FeedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: SearchBarApp()),
+        title: const SearchBarApp(),
         actions: [
           PopupMenuButton(
             itemBuilder: (context) {
@@ -35,14 +36,18 @@ class _FeedScreenState extends State<FeedScreen> {
                 ),
               ];
             },
-            child: const CircleAvatar(child: Text('U')),
+            icon: const CircleAvatar(child: Text('C')),
           ),
         ],
         scrolledUnderElevation: 0,
         backgroundColor: Colors.transparent,
+        centerTitle: true,
+        clipBehavior: Clip.none,
       ),
-      body: Center(
-        child: Card(
+      body: Card(
+        elevation: 0,
+        color: Theme.of(context).colorScheme.surfaceContainerLowest,
+        child: Center(
           child: Breakpoints.small.isActive(context)
               ? ListView.builder(
                   itemBuilder: (context, index) => AspectRatio(
@@ -50,7 +55,7 @@ class _FeedScreenState extends State<FeedScreen> {
                     child: ItemCard(
                       color: colorFromIndex(index),
                       title: 'Item $index',
-                      subtitle: 'This is additional information',
+                      subtitle: 'Additional information',
                     ),
                   ),
                 )
@@ -70,7 +75,7 @@ class _FeedScreenState extends State<FeedScreen> {
                         child: ItemCard(
                           color: colorFromIndex(index),
                           title: 'Item $index',
-                          subtitle: 'This is additional information',
+                          subtitle: 'Additional information',
                         ),
                       ),
                     ),
@@ -78,6 +83,9 @@ class _FeedScreenState extends State<FeedScreen> {
                 ),
         ),
       ),
+      // Note: show FAB on small screens.
+      floatingActionButton:
+          Breakpoints.small.isActive(context) ? const EditButton() : null,
     );
   }
 }
