@@ -1,10 +1,11 @@
-import 'package:example/widgets/searchbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
+import 'package:flutter_canonical_layouts/flutter_canonical_layouts.dart';
 
 import 'router.dart';
 import 'widgets/edit_button.dart';
 import 'widgets/item_card.dart';
+import 'widgets/searchbar.dart';
 
 class DetailScreen extends StatelessWidget {
   final String id;
@@ -18,9 +19,10 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // hides the backbutton if the DetailsScreen are secondBody
+        title: const Text('Detail Title'),
+        // Note: Hides the BackButton when DetailsScreen is shown in detailsPane.
         automaticallyImplyLeading:
-            !Breakpoints.mediumLargeAndUp.isActive(context),
+            !ListDetailLayout.breakpoint.isActive(context),
       ),
       body: ItemCard(
         color: colorFromIndex(int.tryParse(id) ?? 0),
@@ -45,10 +47,11 @@ class ListScreen extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Center(child: SearchBarApp()),
-        primary: false,
+        title: const SearchBarApp(),
         scrolledUnderElevation: 0,
         backgroundColor: Colors.transparent,
+        centerTitle: true,
+        clipBehavior: Clip.none,
       ),
       body: ListView.builder(
         itemBuilder: (context, index) {
@@ -60,14 +63,18 @@ class ListScreen extends StatelessWidget {
                 ? Theme.of(context).colorScheme.secondaryContainer
                 : null,
             child: ListTile(
+              leading: CircleAvatar(backgroundColor: colorFromIndex(index)),
               selected: selected,
               title: Text(index.toString()),
               subtitle: const Text('Some Text'),
-              onTap: () => ListDetailRoute(id: index.toString()).go(context),
+              // Note: Use go() to create a routing history
+              onTap: () => ListDetailRoute(id: index.toString())
+                  .pushReplacement(context),
             ),
           );
         },
       ),
+      // Note: show FAB on small screens.
       floatingActionButton:
           Breakpoints.small.isActive(context) ? const EditButton() : null,
     );

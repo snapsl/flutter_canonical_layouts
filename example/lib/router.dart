@@ -1,18 +1,19 @@
-import 'package:example/supporting_pane.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_canonical_layouts/flutter_canonical_layouts.dart';
 import 'package:go_router/go_router.dart';
 
-import 'detail.dart';
 import 'feed.dart';
 import 'home.dart';
+import 'list_detail.dart';
 import 'main.dart';
+import 'supporting_pane.dart';
 
 part 'router.g.dart';
 
 final GoRouter router = GoRouter(
   routes: $appRoutes,
-  redirect: (context, state) => (state.uri == Uri.parse('/')) ? '/home' : null,
+  redirect: (context, state) =>
+      state.uri.path == '/' ? const HomeRoute().location : null,
 );
 
 @TypedStatefulShellRoute<AppShellRouteData>(
@@ -22,11 +23,9 @@ final GoRouter router = GoRouter(
         TypedGoRoute<HomeRoute>(path: '/home'),
       ],
     ),
-
-    // TODO: how to remove page transition between subroutes?
     TypedStatefulShellBranch<BranchListDetailData>(
       routes: <TypedRoute<RouteData>>[
-        TypedGoRoute<ListDetailInitRoute>(
+        TypedGoRoute<ListDetailInitialRoute>(
           path: '/list-detail',
           routes: [
             TypedGoRoute<ListDetailRoute>(path: ':id'),
@@ -95,8 +94,8 @@ class HomeRoute extends GoRouteData {
   }
 }
 
-class ListDetailInitRoute extends GoRouteData {
-  const ListDetailInitRoute();
+class ListDetailInitialRoute extends GoRouteData {
+  const ListDetailInitialRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
@@ -111,12 +110,18 @@ class ListDetailRoute extends GoRouteData {
     required this.id,
   });
 
+  /// Note: Use [NoTransitionPage] between [ListDetailInitialRoute] and [ListDetailRoute]
+  /// when [ListDetailLayout.breakpoint] to remove animations.
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return ListDetailLayout(
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    final child = ListDetailLayout(
       listPane: ListScreen(selectedIndex: int.tryParse(id)),
       detailPane: DetailScreen(id: state.pathParameters['id']!),
     );
+
+    return ListDetailLayout.breakpoint.isActive(context)
+        ? NoTransitionPage(child: child)
+        : MaterialPage(child: child);
   }
 }
 

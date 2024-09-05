@@ -25,7 +25,7 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
           routes: [
             GoRouteData.$route(
               path: '/list-detail',
-              factory: $ListDetailInitRouteExtension._fromState,
+              factory: $ListDetailInitialRouteExtension._fromState,
               routes: [
                 GoRouteData.$route(
                   path: ':id',
@@ -76,9 +76,9 @@ extension $HomeRouteExtension on HomeRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $ListDetailInitRouteExtension on ListDetailInitRoute {
-  static ListDetailInitRoute _fromState(GoRouterState state) =>
-      const ListDetailInitRoute();
+extension $ListDetailInitialRouteExtension on ListDetailInitialRoute {
+  static ListDetailInitialRoute _fromState(GoRouterState state) =>
+      const ListDetailInitialRoute();
 
   String get location => GoRouteData.$location(
         '/list-detail',
