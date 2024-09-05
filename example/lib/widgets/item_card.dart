@@ -23,7 +23,7 @@ class ItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Card.filled(
       clipBehavior: Clip.hardEdge,
       child: InkWell(
           onTap: () {},

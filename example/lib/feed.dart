@@ -44,44 +44,40 @@ class _FeedScreenState extends State<FeedScreen> {
         centerTitle: true,
         clipBehavior: Clip.none,
       ),
-      body: Card(
-        elevation: 0,
-        color: Theme.of(context).colorScheme.surfaceContainerLowest,
-        child: Center(
-          child: Breakpoints.small.isActive(context)
-              ? ListView.builder(
-                  itemBuilder: (context, index) => AspectRatio(
-                    aspectRatio: 2,
-                    child: ItemCard(
-                      color: colorFromIndex(index),
-                      title: 'Item $index',
-                      subtitle: 'Additional information',
-                    ),
+      body: Center(
+        child: Breakpoints.small.isActive(context)
+            ? ListView.builder(
+                itemBuilder: (context, index) => AspectRatio(
+                  aspectRatio: 2,
+                  child: ItemCard(
+                    color: colorFromIndex(index),
+                    title: 'Item $index',
+                    subtitle: 'Additional information',
                   ),
-                )
-              : ValueListenableBuilder(
-                  valueListenable: constrainedNotifier,
-                  builder: (context, value, child) => ConstrainedBox(
-                    key: ValueKey(value),
-                    constraints: value
-                        ? const BoxConstraints(maxWidth: 840)
-                        : const BoxConstraints(),
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 250),
-                      itemBuilder: (context, index) => AspectRatio(
-                        aspectRatio: 1,
-                        child: ItemCard(
-                          color: colorFromIndex(index),
-                          title: 'Item $index',
-                          subtitle: 'Additional information',
-                        ),
+                ),
+              )
+            : ValueListenableBuilder(
+                valueListenable: constrainedNotifier,
+                builder: (context, value, child) => ConstrainedBox(
+                  key: ValueKey(value),
+                  constraints: value
+                      ? const BoxConstraints(maxWidth: 840)
+                      : const BoxConstraints(),
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 250),
+                    itemBuilder: (context, index) => AspectRatio(
+                      aspectRatio: 1,
+                      child: ItemCard(
+                        color: colorFromIndex(index),
+                        title: 'Item $index',
+                        subtitle: 'Additional information',
                       ),
                     ),
                   ),
                 ),
-        ),
+              ),
       ),
       // Note: show FAB on small screens.
       floatingActionButton:

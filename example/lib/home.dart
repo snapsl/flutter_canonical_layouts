@@ -10,15 +10,12 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Card(
-        elevation: 0,
-        color: Theme.of(context).colorScheme.surfaceContainerLowest,
-        child: const Center(
-          child: Text(
-            'This is an exemplary app for implementing material canonical layouts in Flutter.',
-          ),
+      body: const Center(
+        child: Text(
+          'This is an exemplary app for implementing material canonical layouts in Flutter.',
         ),
       ),
+
       // Note: show FAB on small screens.
       floatingActionButton:
           Breakpoints.small.isActive(context) ? const EditButton() : null,
