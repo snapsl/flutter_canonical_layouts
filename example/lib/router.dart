@@ -120,8 +120,8 @@ class ListDetailRoute extends GoRouteData {
     );
 
     return ListDetailLayout.breakpoint.isActive(context)
-        ? NoTransitionPage(child: child)
-        : MaterialPage(child: child);
+        ? NoTransitionPage(key: state.pageKey, child: child)
+        : MaterialPage(key: state.pageKey, child: child);
   }
 }
 
