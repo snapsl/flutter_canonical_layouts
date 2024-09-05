@@ -14,15 +14,21 @@ class MaterialUiApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorschme = ColorScheme.fromSeed(
-      brightness: Brightness.dark,
-      seedColor: Colors.green,
-    );
     return MaterialApp.router(
       title: 'Flutter Demo',
-      theme: ThemeData(colorScheme: colorschme),
-      darkTheme: ThemeData(colorScheme: colorschme),
-      themeMode: ThemeMode.system,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.green,
+          brightness: Brightness.light,
+        ),
+      ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.green,
+          brightness: Brightness.dark,
+        ),
+      ),
+      themeMode: ThemeMode.light,
       routerConfig: router,
     );
   }
@@ -39,7 +45,8 @@ class ScaffoldShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AdaptiveScaffold(
-      leadingExtendedNavRail: const EditButton(),
+      // Note: Show extended FAB on extended screens.
+      leadingExtendedNavRail: const EditButton.extended(),
       leadingUnextendedNavRail: const EditButton(),
       useDrawer: false,
       selectedIndex: navigationShell.currentIndex,
