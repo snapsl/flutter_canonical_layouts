@@ -5,6 +5,12 @@ import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 ///
 /// https://m3.material.io/foundations/layout/canonical-layouts/list-detail
 class ListDetailLayout extends StatelessWidget {
+  /// Material Breakpoint.
+  ///
+  /// Breakpoint for the list detail layout to show [listPane] and [detailPane]
+  /// side by side.
+  static const Breakpoint breakpoint = Breakpoints.mediumLargeAndUp;
+
   /// Pane for list.
   ///
   /// Usually a [ListView].
@@ -38,13 +44,14 @@ class ListDetailLayout extends StatelessWidget {
     this.detailPlaceholder,
     this.bodyRatio,
     this.transitionDuration = const Duration(seconds: 1),
-    this.internalAnimations = true,
+    this.internalAnimations = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return AdaptiveLayout(
       body: SlotLayout(
+        key: const Key('SLot'),
         config: <Breakpoint, SlotLayoutConfig>{
           Breakpoints.standard: SlotLayout.from(
             key: const Key('Body'),
@@ -58,13 +65,13 @@ class ListDetailLayout extends StatelessWidget {
             key: const Key('Body Medium'),
             builder: (_) => detailPane ?? listPane,
           ),
-          Breakpoints.mediumLargeAndUp: SlotLayout.from(
+          breakpoint: SlotLayout.from(
             key: const Key('Body Large'),
             builder: (_) => listPane,
           )
         },
       ),
-      secondaryBody: Breakpoints.mediumLargeAndUp.isActive(context)
+      secondaryBody: breakpoint.isActive(context)
           ? SlotLayout(
               config: <Breakpoint, SlotLayoutConfig>{
                 Breakpoints.standard: SlotLayout.from(
