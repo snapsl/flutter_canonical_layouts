@@ -13,7 +13,7 @@ enum Side {
 /// Canonical supporting pane layout
 ///
 /// https://m3.material.io/foundations/layout/canonical-layouts/supporting-pane
-class SupportingPaneLayout extends StatelessWidget {
+class SupportingPaneLayout extends StatefulWidget {
   /// Breakpoint for displaying the supporting pane as bottom sheet.
   static const Breakpoint bottomSheetBreakpoint = Breakpoints.small;
 
@@ -65,9 +65,9 @@ class SupportingPaneLayout extends StatelessWidget {
 
   /// Supporting pane as bottom sheet.
   ///
-  /// Widget that implements the supporting pane
-  /// in the compact layout as [DraggableScrollableSheet].
-  final DraggableScrollableSheet bottomSheetSupportingPane;
+  /// Widget that implements the supporting pane in the compact layout.
+  /// Usually a [DraggableScrollableSheet].
+  final Widget bottomSheetSupportingPane;
 
   const SupportingPaneLayout({
     super.key,
@@ -83,16 +83,34 @@ class SupportingPaneLayout extends StatelessWidget {
   });
 
   @override
+  State<SupportingPaneLayout> createState() => _SupportingPaneLayoutState();
+}
+
+class _SupportingPaneLayoutState extends State<SupportingPaneLayout> {
+  PersistentBottomSheetController? controller;
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
+  @override
   Widget build(BuildContext context) {
+    if (SupportingPaneLayout.bottomSheetBreakpoint.isActive(context)) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        controller ??= _scaffoldKey.currentState!.showBottomSheet(
+          (context) => widget.bottomSheetSupportingPane,
+        );
+      });
+    } else {
+      controller?.close();
+      controller = null;
+    }
+
     return Scaffold(
-      // bottomSheet: Breakpoints.small.isActive(context)
-      //     ? bottomSheetSupportingPane
-      //     : null,
+      key: _scaffoldKey,
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
           AdaptiveLayout(
-            primaryNavigation: supportingPaneSide == Side.left
+            primaryNavigation: widget.supportingPaneSide == Side.left
                 ? SlotLayout(
                     config: <Breakpoint, SlotLayoutConfig>{
                       Breakpoints.standard: SlotLayout.from(
@@ -102,24 +120,26 @@ class SupportingPaneLayout extends StatelessWidget {
                       Breakpoints.mediumLargeAndUp: SlotLayout.from(
                         key: const Key('Supporting Pane Left Large'),
                         builder: (_) => SizedBox(
-                            width: sideSupportingPaneWidth,
-                            child: verticalSupportingPane),
+                          width: widget.sideSupportingPaneWidth,
+                          child: widget.verticalSupportingPane,
+                        ),
                       )
                     },
                   )
                 : null,
-            secondaryNavigation: supportingPaneSide == Side.right
+            secondaryNavigation: widget.supportingPaneSide == Side.right
                 ? SlotLayout(
                     config: <Breakpoint, SlotLayoutConfig>{
                       Breakpoints.standard: SlotLayout.from(
                         key: const Key('Supporting Pane Right'),
                         builder: null,
                       ),
-                      sidePaneBreakpoint: SlotLayout.from(
+                      SupportingPaneLayout.sidePaneBreakpoint: SlotLayout.from(
                         key: const Key('Supporting Pane Right Large'),
                         builder: (_) => SizedBox(
-                            width: sideSupportingPaneWidth,
-                            child: verticalSupportingPane),
+                          width: widget.sideSupportingPaneWidth,
+                          child: widget.verticalSupportingPane,
+                        ),
                       )
                     },
                   )
@@ -128,7 +148,7 @@ class SupportingPaneLayout extends StatelessWidget {
               config: <Breakpoint, SlotLayoutConfig>{
                 Breakpoints.standard: SlotLayout.from(
                   key: const Key('Focus Pane'),
-                  builder: (_) => focusPane,
+                  builder: (_) => widget.focusPane,
                 )
               },
             ),
@@ -138,20 +158,20 @@ class SupportingPaneLayout extends StatelessWidget {
                   key: const Key('Supporting Pane'),
                   builder: null,
                 ),
-                bottomPaneBreakpoint: SlotLayout.from(
+                SupportingPaneLayout.bottomPaneBreakpoint: SlotLayout.from(
                   key: const Key('Supporting Pane Medium'),
-                  builder: (_) => horizontalSupportingPane,
+                  builder: (_) => widget.horizontalSupportingPane,
                 )
               },
             ),
-            bodyRatio: 1 - bottomSupportingPaneRatio,
-            transitionDuration: transitionDuration,
-            internalAnimations: internalAnimations,
-            bodyOrientation: bottomPaneBreakpoint.isActive(context)
-                ? Axis.vertical
-                : Axis.horizontal,
+            bodyRatio: 1 - widget.bottomSupportingPaneRatio,
+            transitionDuration: widget.transitionDuration,
+            internalAnimations: widget.internalAnimations,
+            bodyOrientation:
+                SupportingPaneLayout.bottomPaneBreakpoint.isActive(context)
+                    ? Axis.vertical
+                    : Axis.horizontal,
           ),
-          bottomSheetSupportingPane,
         ],
       ),
     );
