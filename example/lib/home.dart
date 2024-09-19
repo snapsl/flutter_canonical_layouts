@@ -13,6 +13,7 @@ class HomeScreen extends StatelessWidget {
       body: const Center(
         child: Text(
           'This is an exemplary app for implementing material canonical layouts in Flutter.',
+          textAlign: TextAlign.center,
         ),
       ),
 

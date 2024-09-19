@@ -67,9 +67,7 @@ class ListScreen extends StatelessWidget {
               selected: selected,
               title: Text(index.toString()),
               subtitle: const Text('Some Text'),
-              // Note: Use go() to create a routing history
-              onTap: () => ListDetailRoute(id: index.toString())
-                  .pushReplacement(context),
+              onTap: () => ListDetailRoute(id: index.toString()).go(context),
             ),
           );
         },
