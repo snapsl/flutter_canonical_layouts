@@ -94,11 +94,11 @@ class _SupportingPaneLayoutState extends State<SupportingPaneLayout> {
   @override
   Widget build(BuildContext context) {
     if (SupportingPaneLayout.bottomSheetBreakpoint.isActive(context)) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        controller ??= _scaffoldKey.currentState!.showBottomSheet(
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => controller ??= _scaffoldKey.currentState?.showBottomSheet(
           (context) => widget.bottomSheetSupportingPane,
-        );
-      });
+        ),
+      );
     } else {
       controller?.close();
       controller = null;
@@ -106,74 +106,70 @@ class _SupportingPaneLayoutState extends State<SupportingPaneLayout> {
 
     return Scaffold(
       key: _scaffoldKey,
-      body: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          AdaptiveLayout(
-            primaryNavigation: widget.supportingPaneSide == Side.left
-                ? SlotLayout(
-                    config: <Breakpoint, SlotLayoutConfig>{
-                      Breakpoints.standard: SlotLayout.from(
-                        key: const Key('Supporting Pane Left'),
-                        builder: null,
-                      ),
-                      Breakpoints.mediumLargeAndUp: SlotLayout.from(
-                        key: const Key('Supporting Pane Left Large'),
-                        builder: (_) => SizedBox(
-                          width: widget.sideSupportingPaneWidth,
-                          child: widget.verticalSupportingPane,
-                        ),
-                      )
-                    },
+      body: AdaptiveLayout(
+        primaryNavigation: widget.supportingPaneSide == Side.left
+            ? SlotLayout(
+                config: <Breakpoint, SlotLayoutConfig>{
+                  Breakpoints.standard: SlotLayout.from(
+                    key: const Key('Supporting Pane Left'),
+                    builder: null,
+                  ),
+                  SupportingPaneLayout.sidePaneBreakpoint: SlotLayout.from(
+                    key: const Key('Supporting Pane Left Large'),
+                    builder: (_) => SizedBox(
+                      width: widget.sideSupportingPaneWidth,
+                      child: widget.verticalSupportingPane,
+                    ),
                   )
-                : null,
-            secondaryNavigation: widget.supportingPaneSide == Side.right
-                ? SlotLayout(
-                    config: <Breakpoint, SlotLayoutConfig>{
-                      Breakpoints.standard: SlotLayout.from(
-                        key: const Key('Supporting Pane Right'),
-                        builder: null,
-                      ),
-                      SupportingPaneLayout.sidePaneBreakpoint: SlotLayout.from(
-                        key: const Key('Supporting Pane Right Large'),
-                        builder: (_) => SizedBox(
-                          width: widget.sideSupportingPaneWidth,
-                          child: widget.verticalSupportingPane,
-                        ),
-                      )
-                    },
+                },
+              )
+            : null,
+        secondaryNavigation: widget.supportingPaneSide == Side.right
+            ? SlotLayout(
+                config: <Breakpoint, SlotLayoutConfig>{
+                  Breakpoints.standard: SlotLayout.from(
+                    key: const Key('Supporting Pane Right'),
+                    builder: null,
+                  ),
+                  SupportingPaneLayout.sidePaneBreakpoint: SlotLayout.from(
+                    key: const Key('Supporting Pane Right Large'),
+                    builder: (_) => SizedBox(
+                      width: widget.sideSupportingPaneWidth,
+                      child: widget.verticalSupportingPane,
+                    ),
                   )
-                : null,
-            body: SlotLayout(
-              config: <Breakpoint, SlotLayoutConfig>{
-                Breakpoints.standard: SlotLayout.from(
-                  key: const Key('Focus Pane'),
-                  builder: (_) => widget.focusPane,
-                )
-              },
+                },
+              )
+            : null,
+        body: SlotLayout(
+          config: <Breakpoint, SlotLayoutConfig>{
+            Breakpoints.standard: SlotLayout.from(
+              key: const Key('Focus Pane'),
+              builder: (_) => widget.focusPane,
+            )
+          },
+        ),
+        secondaryBody: SlotLayout(
+          config: <Breakpoint, SlotLayoutConfig>{
+            Breakpoints.standard: SlotLayout.from(
+              key: const Key('Supporting Pane'),
+              builder: null,
             ),
-            secondaryBody: SlotLayout(
-              config: <Breakpoint, SlotLayoutConfig>{
-                Breakpoints.standard: SlotLayout.from(
-                  key: const Key('Supporting Pane'),
-                  builder: null,
-                ),
-                SupportingPaneLayout.bottomPaneBreakpoint: SlotLayout.from(
-                  key: const Key('Supporting Pane Medium'),
-                  builder: (_) => widget.horizontalSupportingPane,
-                )
-              },
-            ),
-            bodyRatio: 1 - widget.bottomSupportingPaneRatio,
-            transitionDuration: widget.transitionDuration,
-            internalAnimations: widget.internalAnimations,
-            bodyOrientation:
-                SupportingPaneLayout.bottomPaneBreakpoint.isActive(context)
-                    ? Axis.vertical
-                    : Axis.horizontal,
-          ),
-        ],
+            SupportingPaneLayout.bottomPaneBreakpoint: SlotLayout.from(
+              key: const Key('Supporting Pane Medium'),
+              builder: (_) => widget.horizontalSupportingPane,
+            )
+          },
+        ),
+        bodyRatio: 1 - widget.bottomSupportingPaneRatio,
+        transitionDuration: widget.transitionDuration,
+        internalAnimations: widget.internalAnimations,
+        bodyOrientation:
+            SupportingPaneLayout.bottomPaneBreakpoint.isActive(context)
+                ? Axis.vertical
+                : Axis.horizontal,
       ),
+      primary: false,
     );
   }
 }
