@@ -26,9 +26,10 @@ class ItemCard extends StatelessWidget {
     return Card.filled(
       clipBehavior: Clip.hardEdge,
       child: InkWell(
-          onTap: () {},
-          child: switch (orientation) {
-            Orientation.portrait => Column(children: [
+        onTap: () {},
+        child: switch (orientation) {
+          Orientation.portrait => Column(
+              children: [
                 Expanded(
                   child: Card(
                     color: color,
@@ -40,9 +41,11 @@ class ItemCard extends StatelessWidget {
                   title: Text(title),
                   subtitle: Text(subtitle),
                   isThreeLine: true,
-                )
-              ]),
-            Orientation.landscape => Row(children: [
+                ),
+              ],
+            ),
+          Orientation.landscape => Row(
+              children: [
                 Expanded(
                   child: Card(
                     color: color,
@@ -57,9 +60,11 @@ class ItemCard extends StatelessWidget {
                     subtitle: Text(subtitle),
                     isThreeLine: true,
                   ),
-                )
-              ]),
-          }),
+                ),
+              ],
+            ),
+        },
+      ),
     );
   }
 }

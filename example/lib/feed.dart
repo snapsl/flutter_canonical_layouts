@@ -29,9 +29,10 @@ class _FeedScreenState extends State<FeedScreen> {
                   child: ValueListenableBuilder(
                     valueListenable: constrainedNotifier,
                     builder: (context, value, child) => SwitchListTile(
-                        title: const Text('Use constrained box'),
-                        value: value,
-                        onChanged: (_) => constrainedNotifier.value = !value),
+                      title: const Text('Use constrained box'),
+                      value: value,
+                      onChanged: (_) => constrainedNotifier.value = !value,
+                    ),
                   ),
                 ),
               ];
