@@ -102,7 +102,7 @@ class _SupportingPaneLayoutState extends State<SupportingPaneLayout> {
     return Scaffold(
       key: _scaffoldKey,
       body: AdaptiveLayout(
-        primaryNavigation: supportingPaneSide == TextDirection.ltr
+        primaryNavigation: supportingPaneSide == TextDirection.rtl
             ? SlotLayout(
                 config: <Breakpoint, SlotLayoutConfig>{
                   Breakpoints.standard: SlotLayout.from(
