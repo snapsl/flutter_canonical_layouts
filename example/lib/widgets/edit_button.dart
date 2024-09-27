@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 
 class EditButton extends StatelessWidget {
-  final bool extended;
+  final bool _isExtended;
 
-  const EditButton({super.key}) : extended = false;
+  const EditButton({super.key}) : _isExtended = false;
 
-  const EditButton.extended({super.key}) : extended = true;
+  const EditButton.extended({super.key}) : _isExtended = true;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class EditButton extends StatelessWidget {
         ),
       );
 
-    return extended
+    return _isExtended
         ? FloatingActionButton.extended(
             onPressed: onPressed,
             icon: const Icon(Icons.edit),
