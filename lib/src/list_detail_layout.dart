@@ -51,7 +51,6 @@ class ListDetailLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return AdaptiveLayout(
       body: SlotLayout(
-        key: const Key('SLot'),
         config: <Breakpoint, SlotLayoutConfig>{
           Breakpoints.standard: SlotLayout.from(
             key: const Key('Body'),
@@ -68,7 +67,7 @@ class ListDetailLayout extends StatelessWidget {
           breakpoint: SlotLayout.from(
             key: const Key('Body Large'),
             builder: (_) => listPane,
-          )
+          ),
         },
       ),
       secondaryBody: breakpoint.isActive(context)
@@ -78,13 +77,13 @@ class ListDetailLayout extends StatelessWidget {
                   key: const Key('Secondary Body Large'),
                   builder: (_) =>
                       detailPane ?? detailPlaceholder ?? const SizedBox(),
-                )
+                ),
               },
             )
           : null,
+      bodyRatio: bodyRatio,
       transitionDuration: transitionDuration,
       internalAnimations: internalAnimations,
-      bodyRatio: bodyRatio,
     );
   }
 }
