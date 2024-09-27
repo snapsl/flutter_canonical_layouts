@@ -51,7 +51,7 @@ class _FeedScreenState extends State<FeedScreen> {
                 itemBuilder: (context, index) => AspectRatio(
                   aspectRatio: 2,
                   child: ItemCard(
-                    color: colorFromIndex(index),
+                    color: ItemCard.colorFromIndex(index),
                     title: 'Item $index',
                     subtitle: 'Additional information',
                   ),
@@ -71,7 +71,7 @@ class _FeedScreenState extends State<FeedScreen> {
                     itemBuilder: (context, index) => AspectRatio(
                       aspectRatio: 1,
                       child: ItemCard(
-                        color: colorFromIndex(index),
+                        color: ItemCard.colorFromIndex(index),
                         title: 'Item $index',
                         subtitle: 'Additional information',
                       ),

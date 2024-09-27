@@ -63,7 +63,7 @@ class _SupportingPaneScreenState extends State<SupportingPaneScreen> {
                 itemBuilder: (context, index) => AspectRatio(
                   aspectRatio: 2,
                   child: ItemCard(
-                    color: colorFromIndex(index),
+                    color: ItemCard.colorFromIndex(index),
                     title: 'Item $index',
                     subtitle: 'Information',
                   ),
@@ -103,7 +103,7 @@ class _SupportingPaneScreenState extends State<SupportingPaneScreen> {
             itemBuilder: (context, index) => AspectRatio(
               aspectRatio: 1,
               child: ItemCard(
-                color: colorFromIndex(index),
+                color: ItemCard.colorFromIndex(index),
                 title: 'Item $index',
                 subtitle: 'Information',
               ),
@@ -116,7 +116,7 @@ class _SupportingPaneScreenState extends State<SupportingPaneScreen> {
             aspectRatio: 3,
             child: ItemCard(
               orientation: Orientation.landscape,
-              color: colorFromIndex(index),
+              color: ItemCard.colorFromIndex(index),
               title: 'Item $index',
               subtitle: 'Information',
             ),

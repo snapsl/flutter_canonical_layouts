@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-Color colorFromIndex(int index) =>
-    Colors.primaries[index % Colors.primaries.length];
-
 /// Simple Card Widget
 class ItemCard extends StatelessWidget {
   final Color color;
@@ -67,4 +64,7 @@ class ItemCard extends StatelessWidget {
       ),
     );
   }
+
+  static Color colorFromIndex(int index) =>
+      Colors.primaries[index % Colors.primaries.length];
 }

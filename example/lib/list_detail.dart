@@ -25,7 +25,7 @@ class DetailScreen extends StatelessWidget {
             !ListDetailLayout.breakpoint.isActive(context),
       ),
       body: ItemCard(
-        color: colorFromIndex(int.tryParse(id) ?? 0),
+        color: ItemCard.colorFromIndex(int.tryParse(id) ?? 0),
         title: 'Title for $id',
         subtitle: 'subtitle',
       ),
@@ -63,7 +63,9 @@ class ListScreen extends StatelessWidget {
                 ? Theme.of(context).colorScheme.secondaryContainer
                 : null,
             child: ListTile(
-              leading: CircleAvatar(backgroundColor: colorFromIndex(index)),
+              leading: CircleAvatar(
+                backgroundColor: ItemCard.colorFromIndex(index),
+              ),
               selected: selected,
               title: Text(index.toString()),
               subtitle: const Text('Some Text'),
