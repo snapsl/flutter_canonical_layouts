@@ -1,15 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 
-/// Represents a side, either left or right.
-enum Side {
-  /// Left side.
-  left,
-
-  /// Right side.
-  right,
-}
-
 /// Canonical supporting pane layout
 ///
 /// https://m3.material.io/foundations/layout/canonical-layouts/supporting-pane
@@ -48,8 +39,9 @@ class SupportingPaneLayout extends StatefulWidget {
 
   /// Side of the supporting pane.
   ///
-  /// Choose between [Side.left] and [Side.right].
-  final Side supportingPaneSide;
+  /// Choose between [TextDirection.ltr] and [TextDirection.rtl].
+  /// Defaults to [Directionality.of].
+  final TextDirection? supportingPaneSide;
 
   /// Width for supporting pane.
   ///
@@ -75,7 +67,7 @@ class SupportingPaneLayout extends StatefulWidget {
     required this.horizontalSupportingPane,
     required this.verticalSupportingPane,
     required this.bottomSheetSupportingPane,
-    this.supportingPaneSide = Side.right,
+    this.supportingPaneSide,
     this.internalAnimations = false,
     this.transitionDuration = const Duration(seconds: 1),
     this.sideSupportingPaneWidth = 360,
@@ -104,10 +96,13 @@ class _SupportingPaneLayoutState extends State<SupportingPaneLayout> {
       controller = null;
     }
 
+    final supportingPaneSide =
+        widget.supportingPaneSide ?? Directionality.of(context);
+
     return Scaffold(
       key: _scaffoldKey,
       body: AdaptiveLayout(
-        primaryNavigation: widget.supportingPaneSide == Side.left
+        primaryNavigation: supportingPaneSide == TextDirection.ltr
             ? SlotLayout(
                 config: <Breakpoint, SlotLayoutConfig>{
                   Breakpoints.standard: SlotLayout.from(
@@ -124,7 +119,7 @@ class _SupportingPaneLayoutState extends State<SupportingPaneLayout> {
                 },
               )
             : null,
-        secondaryNavigation: widget.supportingPaneSide == Side.right
+        secondaryNavigation: supportingPaneSide == TextDirection.ltr
             ? SlotLayout(
                 config: <Breakpoint, SlotLayoutConfig>{
                   Breakpoints.standard: SlotLayout.from(
