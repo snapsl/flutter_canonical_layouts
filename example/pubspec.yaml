@@ -38,7 +38,7 @@ dependencies:
   flutter_adaptive_scaffold: ^0.3.1
   flutter_canonical_layouts: 
     path: ..
-  go_router: ^14.3.0
+  go_router: ^14.6.0
 
 dev_dependencies:
   flutter_test:
