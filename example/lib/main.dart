@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:go_router/go_router.dart';
@@ -14,17 +16,20 @@ class MaterialUiApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final seedColor =
+        Colors.primaries[math.Random().nextInt(Colors.primaries.length)];
+
     return MaterialApp.router(
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.green,
+          seedColor: seedColor,
           brightness: Brightness.light,
         ),
       ),
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.green,
+          seedColor: seedColor,
           brightness: Brightness.dark,
         ),
       ),
