@@ -69,7 +69,13 @@ class ListScreen extends StatelessWidget {
               selected: selected,
               title: Text(index.toString()),
               subtitle: const Text('Some Text'),
-              onTap: () => ListDetailRoute(id: index.toString()).go(context),
+              onTap: () {
+                /// Note: this creates no router history
+                Router.neglect(
+                  context,
+                  () => ListDetailRoute(id: index.toString()).go(context),
+                );
+              },
             ),
           );
         },

@@ -6,7 +6,7 @@
 /// - Supporting pane layout
 ///
 /// No wrapper is required for the feed layout, as it can simply be implemented using a ListView or GridView, respectively.
-library flutter_canonical_layouts;
+library;
 
 export 'src/feed_layout.dart';
 export 'src/list_detail_layout.dart';

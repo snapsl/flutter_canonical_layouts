@@ -10,10 +10,10 @@ import 'supporting_pane.dart';
 
 part 'router.g.dart';
 
+// Note: It's recommended to use a service locator
 final GoRouter router = GoRouter(
   routes: $appRoutes,
-  redirect: (context, state) =>
-      state.uri.path == '/' ? const HomeRoute().location : null,
+  initialLocation: HomeRoute().location,
 );
 
 @TypedStatefulShellRoute<AppShellRouteData>(
@@ -25,11 +25,8 @@ final GoRouter router = GoRouter(
     ),
     TypedStatefulShellBranch<BranchListDetailData>(
       routes: <TypedRoute<RouteData>>[
-        TypedGoRoute<ListDetailInitialRoute>(
+        TypedGoRoute<ListDetailRoute>(
           path: '/list-detail',
-          routes: [
-            TypedGoRoute<ListDetailRoute>(path: ':id'),
-          ],
         ),
       ],
     ),
@@ -94,33 +91,26 @@ class HomeRoute extends GoRouteData {
   }
 }
 
-class ListDetailInitialRoute extends GoRouteData {
-  const ListDetailInitialRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const ListDetailLayout(listPane: ListScreen());
-  }
-}
-
 class ListDetailRoute extends GoRouteData {
-  final String id;
+  final String? id;
 
   const ListDetailRoute({
-    required this.id,
+    this.id,
   });
 
   /// Note: Use [NoTransitionPage] between [ListDetailInitialRoute] and [ListDetailRoute]
   /// when [ListDetailLayout.breakpoint] to remove animations.
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
+    final index = int.tryParse(id.toString());
+
     final child = ListDetailLayout(
-      listPane: ListScreen(selectedIndex: int.tryParse(id)),
-      detailPane: DetailScreen(id: state.pathParameters['id']!),
+      listPane: ListScreen(selectedIndex: index),
+      detailPane: index != null ? DetailScreen(id: id.toString()) : null,
     );
 
     return ListDetailLayout.breakpoint.isActive(context)
-        ? NoTransitionPage(child: child)
+        ? NoTransitionPage(key: state.pageKey, child: child)
         : MaterialPage(key: state.pageKey, child: child);
   }
 }
