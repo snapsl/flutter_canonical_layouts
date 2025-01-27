@@ -48,10 +48,8 @@ class ListScreen extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const SearchBarApp(),
-        scrolledUnderElevation: 0,
-        backgroundColor: Colors.transparent,
         centerTitle: true,
-        clipBehavior: Clip.none,
+        forceMaterialTransparency: true,
       ),
       body: ListView.builder(
         itemBuilder: (context, index) {
@@ -69,13 +67,7 @@ class ListScreen extends StatelessWidget {
               selected: selected,
               title: Text(index.toString()),
               subtitle: const Text('Some Text'),
-              onTap: () {
-                /// Note: this creates no router history
-                Router.neglect(
-                  context,
-                  () => ListDetailRoute(id: index.toString()).go(context),
-                );
-              },
+              onTap: () => ListDetailRoute(id: index.toString()).go(context),
             ),
           );
         },

@@ -80,10 +80,8 @@ class _SupportingPaneScreenState extends State<SupportingPaneScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const SearchBarApp(),
-        scrolledUnderElevation: 0,
-        backgroundColor: Colors.transparent,
         centerTitle: true,
-        clipBehavior: Clip.none,
+        forceMaterialTransparency: true,
       ),
       body: SupportingPaneLayout(
         focusPane: ItemCard(

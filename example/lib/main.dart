@@ -49,15 +49,6 @@ class ScaffoldShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void onNavigationEvent(int index) {
-      final initialLocation = index == navigationShell.currentIndex;
-
-      void navigate() =>
-          navigationShell.goBranch(index, initialLocation: initialLocation);
-
-      initialLocation ? Router.neglect(context, navigate) : navigate();
-    }
-
     return AdaptiveScaffold(
       // Note: Show extended FAB on extended screens.
       leadingExtendedNavRail: const EditButton.extended(),
@@ -75,5 +66,10 @@ class ScaffoldShell extends StatelessWidget {
         NavigationDestination(icon: Icon(Icons.feed), label: 'Feed'),
       ],
     );
+  }
+
+  void onNavigationEvent(int index) {
+    navigationShell.goBranch(index,
+        initialLocation: index == navigationShell.currentIndex);
   }
 }

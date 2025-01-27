@@ -19,24 +19,27 @@ final GoRouter router = GoRouter(
 @TypedStatefulShellRoute<AppShellRouteData>(
   branches: <TypedStatefulShellBranch<StatefulShellBranchData>>[
     TypedStatefulShellBranch<BranchHomeData>(
-      routes: <TypedRoute<RouteData>>[
+      routes: [
         TypedGoRoute<HomeRoute>(path: '/home'),
       ],
     ),
     TypedStatefulShellBranch<BranchListDetailData>(
       routes: <TypedRoute<RouteData>>[
-        TypedGoRoute<ListDetailRoute>(
+        TypedGoRoute<ListDetailInitialRoute>(
           path: '/list-detail',
+          routes: [
+            TypedGoRoute<ListDetailRoute>(path: ':id'),
+          ],
         ),
       ],
     ),
     TypedStatefulShellBranch<BranchSupportingPaneData>(
-      routes: <TypedRoute<RouteData>>[
+      routes: [
         TypedGoRoute<SupportingPaneRoute>(path: '/supporting-pane'),
       ],
     ),
     TypedStatefulShellBranch<BranchFeedData>(
-      routes: <TypedRoute<RouteData>>[
+      routes: [
         TypedGoRoute<FeedRoute>(path: '/feed'),
       ],
     ),
@@ -91,15 +94,24 @@ class HomeRoute extends GoRouteData {
   }
 }
 
+class ListDetailInitialRoute extends GoRouteData {
+  const ListDetailInitialRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ListDetailLayout(listPane: ListScreen());
+  }
+}
+
 class ListDetailRoute extends GoRouteData {
-  final String? id;
+  final String id;
 
   const ListDetailRoute({
-    this.id,
+    required this.id,
   });
 
   /// Note: Use [NoTransitionPage] between [ListDetailInitialRoute] and [ListDetailRoute]
-  /// when [ListDetailLayout.breakpoint] to remove animations.
+  /// when [ListDetailLayout.breakpoint] is active to remove animations.
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     final index = int.tryParse(id.toString());

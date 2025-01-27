@@ -25,7 +25,13 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
           routes: [
             GoRouteData.$route(
               path: '/list-detail',
-              factory: $ListDetailRouteExtension._fromState,
+              factory: $ListDetailInitialRouteExtension._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: ':id',
+                  factory: $ListDetailRouteExtension._fromState,
+                ),
+              ],
             ),
           ],
         ),
@@ -70,16 +76,31 @@ extension $HomeRouteExtension on HomeRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $ListDetailRouteExtension on ListDetailRoute {
-  static ListDetailRoute _fromState(GoRouterState state) => ListDetailRoute(
-        id: state.uri.queryParameters['id'],
-      );
+extension $ListDetailInitialRouteExtension on ListDetailInitialRoute {
+  static ListDetailInitialRoute _fromState(GoRouterState state) =>
+      const ListDetailInitialRoute();
 
   String get location => GoRouteData.$location(
         '/list-detail',
-        queryParams: {
-          if (id != null) 'id': id,
-        },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ListDetailRouteExtension on ListDetailRoute {
+  static ListDetailRoute _fromState(GoRouterState state) => ListDetailRoute(
+        id: state.pathParameters['id']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/list-detail/${Uri.encodeComponent(id)}',
       );
 
   void go(BuildContext context) => context.go(location);

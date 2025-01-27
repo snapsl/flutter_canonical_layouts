@@ -40,10 +40,8 @@ class _FeedScreenState extends State<FeedScreen> {
             icon: const CircleAvatar(child: Text('C')),
           ),
         ],
-        scrolledUnderElevation: 0,
-        backgroundColor: Colors.transparent,
         centerTitle: true,
-        clipBehavior: Clip.none,
+        forceMaterialTransparency: true,
       ),
       body: Center(
         child: Breakpoints.small.isActive(context)
