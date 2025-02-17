@@ -50,7 +50,7 @@ dev_dependencies:
   # rules and activating additional ones.
   build_runner: ^2.4.14
   flutter_lints: ^5.0.0
-  go_router_builder: ^2.7.5
+  go_router_builder: ^2.8.0
 
   
 
